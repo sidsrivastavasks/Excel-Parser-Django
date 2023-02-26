@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+    margin: 0;
+    padding: 0;
+}
+
+.main {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+.body {
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 50px;
+    min-height: 50vh;
+    max-height: auto;
+}
+input {
+    width: 250px;
+    height: 35px;
+    box-sizing: border-box;
+    background: #ffffff;
+    border: 1px solid rgb(0 0 0 / 43%);
+    border-radius: 4px;
+    padding: 8px;
+}
+.submitButton {
+    width: 250px;
+    height: 35px;
+    background: #8500ff;
+    border-radius: 3px;
+    color: white;
+    font-weight: bold;
+    border: 1px solid rgb(255 255 255);
+    border-radius: 10px;
+}
+.submitButton:hover {
+    cursor: pointer;
+}
+.first {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.second {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 50px;
+}
+
+.second .search {
+    width: 300px;
+    height: 35px;
+    border: 1px solid rgb(0 0 0 / 29%);
+    border-radius: 20px;
+    padding: 20px;
+}
+.deletebtn {
+    width: 20px;
+    height: auto;
+}
+
+.user-table-area {
+    background-color: #e8eefe;
+    width: auto;
+    height: auto;
+    margin: auto;
+    padding: 48px 64px;
+    border-radius: 10px;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.user-table {
+    background-color: #fcfcfc;
+    overflow: hidden;
+    border-radius: 10px;
+    margin-top: 50px;
+}
+
+.table-heading {
+    background-color: #8500ff;
+    color: white;
+}
+
+.table-col {
+    outline: none;
+    padding: 6px 32px;
+    width: auto;
+}
+
+.user-heading-text {
+    font-size: 14px;
+    font-weight: 600;
+    text-align: center;
+}
+
+.user-text {
+    font-size: 14px;
+}
+
+.align-center {
+    text-align: center;
+}
+
+.align-left {
+    text-align: left;
+}
+
+.table-row:nth-child(odd) {
+    background-color: #c789ff3d;
+}
+
+.table-row:hover {
+    background-color: #8500ff8f;
+    color: white;
+}
+
+@media screen and (max-width: 900px) {
+    .body {
+        width: 90%;
+        padding: 40px;
+    }
+    .first {
+        flex-direction: column;
+        width: auto;
+    }
+    .second {
+        flex-direction: column;
+    }
+    .second .search {
+        width: auto;
+        height: 35px;
+        padding: 16px;
+    }
+    h2 {
+        font-size: 15px;
+    }
+
+    input {
+        width: auto;
+        height: 30px;
+        margin-top: 6px;
+    }
+    .submitButton {
+        width: auto;
+        height: 30px;
+        margin-top: 6px;
+    }
+    .third {
+        width: auto;
+    }
+}
+
+    </style>
+</head>
+<body>
+    
+<div class="main">
+    <div class="body">
+        <!-- <form id="userInputForm" class="first">    
+            <input type="text" id="firstName" placeholder="First Name" required>
+            <input type="text" id="lastName" placeholder="Last Name" required>
+            <input type="text" id="phone" placeholder="Contact Number">
+            <button class="submitButton" type="submit">SAVE</button>        
+        </form> -->
+        <div class="second">
+            <h2>Find User Data Below</h2>
+            <input id="search-box" class="search" type="search" placeholder="Search Name..." value="" onkeyup="searchData()">
+        </div>
+       <div class="third">
+
+       
+            <table id="myTable" class="user-table">
+                <thead>
+                    <tr class="table-heading">
+                        <td class="table-col user-heading-text">Sl. No.</td>
+                        <td class="table-col user-heading-text" style="cursor: pointer" onclick="sortName()">Product 
+                            Name
+                            </td>
+                        <td class="table-col user-heading-text">Lowest 
+                            Price
+                            </td>
+                        <td class="table-col user-heading-text">Variations & Stock</td>
+                        <td class="table-col user-heading-text">Last Updated</td>
+                    </tr>
+                </thead>
+                <tbody>
+                  
+                </tbody>
+                
+            </table>
+       
+       </div>
+
+       <div>
+        <!-- <h2>hello</h2> -->
+            {% for page_number in page_obj.paginator.page_range %}
+                <a
+                    href="{% url 'terms-by-page' page_number %}"
+                    class="{% if page_number == page_obj.number %}current{% endif %}"
+                >
+                    {{page_number}}
+                </a>
+            {% endfor %}
+       </div>
+    </div>
+
+</div>
+
+
+
+</body>
+
+</body>
+</html>

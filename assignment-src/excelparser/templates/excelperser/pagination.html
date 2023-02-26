@@ -1,0 +1,17 @@
+{% extends "excelperser/homePage.html" %}
+
+{% block content %}
+    {% for kw in page_obj %}<pre>{{kw}}</pre>{% endfor %}
+    <h1>Hello</h1>
+{% endblock %}
+
+{% block pagination %}
+    {% for page_number in page_obj.paginator.page_range %}
+        <a
+            href="{% url 'terms-by-page' page_number %}"
+            class="{% if page_number == page_obj.number %}current{% endif %}"
+        >
+            {{page_number}}
+        </a>
+    {% endfor %}
+{% endblock %}
