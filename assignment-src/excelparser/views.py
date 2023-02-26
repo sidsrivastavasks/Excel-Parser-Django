@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.http import JsonResponse
+from django.core.paginator import Paginator
 from django.views.decorators.csrf import csrf_exempt
 from .models import Product, ProductVariation
 import pandas as pd
@@ -8,7 +9,30 @@ from openpyxl import load_workbook
 
 
 def index(request):
-    return render(request, 'excelperser/homePage.html')
+
+    result = []
+    allProducts = Product.objects.all()
+
+    paginator = Paginator(allProducts, 1) # per page
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
+    for product in page_obj:
+        variation = Product.objects.get(name=product.name).variations.all()
+        
+        product_variance = {
+            "item": product,
+            "variation": variation,
+        }
+
+        result.append(product_variance)
+
+    context = {
+        "data": result,
+        'page_obj': page_obj,
+    }
+
+    return render(request, 'excelperser/homePage.html', context=context)
 
 
 @csrf_exempt
@@ -57,10 +81,7 @@ def addProduct(request):
 
                 newVariation = ProductVariation(product_id=newProduct.id, variation_text=variation_text, stock=stock)
                 newVariation.save()
-
-
-            
-            
+         
         return JsonResponse({'success': True})
     else:
         return JsonResponse({'error': 'Invalid request'})

@@ -1,0 +1,185 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+.main {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+.body {
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 50px;
+    min-height: 50vh;
+    max-height: auto;
+}
+input {
+    width: 250px;
+    height: 35px;
+    box-sizing: border-box;
+    background: #ffffff;
+    border: 1px solid rgb(0 0 0 / 43%);
+    border-radius: 4px;
+    padding: 8px;
+}
+.submitButton {
+    width: 250px;
+    height: 35px;
+    background: #8500ff;
+    border-radius: 3px;
+    color: white;
+    font-weight: bold;
+    border: 1px solid rgb(255 255 255);
+    border-radius: 10px;
+}
+.submitButton:hover {
+    cursor: pointer;
+}
+.first {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.second {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 50px;
+}
+
+.second .search {
+    width: 300px;
+    height: 35px;
+    border: 1px solid rgb(0 0 0 / 29%);
+    border-radius: 20px;
+    padding: 20px;
+}
+.deletebtn {
+    width: 20px;
+    height: auto;
+}
+
+.user-table-area {
+    background-color: #e8eefe;
+    width: auto;
+    height: auto;
+    margin: auto;
+    padding: 48px 64px;
+    border-radius: 10px;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.user-table {
+    background-color: #fcfcfc;
+    overflow: hidden;
+    border-radius: 10px;
+    margin-top: 50px;
+}
+
+.table-heading {
+    background-color: #8500ff;
+    color: white;
+}
+
+.table-col {
+    outline: none;
+    padding: 6px 32px;
+    width: auto;
+}
+
+.user-heading-text {
+    font-size: 14px;
+    font-weight: 600;
+    text-align: center;
+}
+
+.user-text {
+    font-size: 14px;
+}
+
+.align-center {
+    text-align: center;
+}
+
+.align-left {
+    text-align: left;
+}
+
+.table-row:nth-child(odd) {
+    background-color: #c789ff3d;
+    color: black;
+}
+
+.table-row:hover {
+    background-color: #8500ff8f;
+    color: black;
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    margin: 20px 0;
+}
+
+.pagination a {
+    color: #333;
+    display: inline-block;
+    padding: 5px 10px;
+    border: 1px solid #ddd;
+    margin: 0 5px;
+    text-decoration: none;
+}
+
+.pagination a:hover {
+    background-color: #f5f5f5;
+}
+
+.pagination .current-page {
+    font-weight: bold;
+}
+
+@media screen and (max-width: 900px) {
+    .body {
+        width: 90%;
+        padding: 40px;
+    }
+    .first {
+        flex-direction: column;
+        width: auto;
+    }
+    .second {
+        flex-direction: column;
+    }
+    .second .search {
+        width: auto;
+        height: 35px;
+        padding: 16px;
+    }
+    h2 {
+        font-size: 15px;
+    }
+
+    input {
+        width: auto;
+        height: 30px;
+        margin-top: 6px;
+    }
+    .submitButton {
+        width: auto;
+        height: 30px;
+        margin-top: 6px;
+    }
+    .third {
+        width: auto;
+    }
+}
