@@ -1,135 +1,122 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    {% load bootstrap5 %}
-    {% bootstrap_javascript %}
-    {% bootstrap_css %}
-    {% load static %}
-    <link rel="stylesheet" href="{% static 'style.css'%}">
-</head>
-<body>
-    
-    
-<div class="main">
-    <div class="body">
-        <!-- Button trigger modal -->
-<button type="button" class="btn btn-primary" style="background-color: #8500ff; border-color: white;" data-bs-toggle="modal" data-bs-target="#exampleModalCenter">
-    Add Products
-  </button>
-  
-  <!-- Modal -->
-  <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLongTitle">Choose a product file</h5>
-          </button>
-        </div>
-        <div class="modal-body">
-            <form id="file-input-form" class="form-group row" enctype="multipart/form-data">
-                <input required id="my-file" type="file" class="form-control" name="file">
-                <button type="submit" class="btn btn-primary mt-2">Submit</button>
-            </form>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        </div>
-      </div>
-    </div>
-  </div>
-        <div class="second">
-            <h2>Find Mobile Data Below</h2>
-            <input id="search-box" class="search" type="search" placeholder="Search Name..." value="" onkeyup="searchData()">
-        </div>
-       <div class="third">
-            <table id="myTable" class="user-table">
-                <thead>
-                    <tr class="table-heading">
+   <head>
+      <meta charset="UTF-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Document</title>
+      <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+      {% load bootstrap5 %}
+      {% bootstrap_javascript %}
+      {% bootstrap_css %}
+      {% load static %}
+      <link rel="stylesheet" href="{% static 'style.css'%}">
+   </head>
+   <body>
+      <div class="main">
+         <div class="body">
+            <!-- Button trigger modal -->
+            <button type="button" class="btn btn-primary" style="background-color: #8500ff; border-color: white;" data-bs-toggle="modal" data-bs-target="#exampleModalCenter">
+            Add Products
+            </button>
+            <!-- Modal -->
+            <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+               <div class="modal-dialog modal-dialog-centered" role="document">
+                  <div class="modal-content">
+                     <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle">Choose a product file</h5>
+                        </button>
+                     </div>
+                     <div class="modal-body">
+                        <form id="file-input-form" class="form-group row" enctype="multipart/form-data">
+                           <label for="file"><strong>Choose a file</strong><span> or drag it here</span>.</label>
+                           <input required id="my-file" type="file" class="form-control mt-2" name="file">
+                           <button type="submit" class="btn btn-primary mt-2">Submit</button>
+                        </form>
+                     </div>
+                     <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                     </div>
+                  </div>
+               </div>
+            </div>
+            <div class="second">
+               <h2>Find Mobile Data Below</h2>
+               <input id="search-box" class="search" type="search" placeholder="Search Name..." value="" onkeyup="searchData()">
+            </div>
+            <div class="third">
+               <table id="myTable" class="user-table">
+                  <thead>
+                     <tr class="table-heading">
                         <td id="sort-id" class="table-col user-heading-text" style="cursor: pointer; " onclick="sortName(0)">Sl. No.</td>
                         <td id="sort-id" class="table-col user-heading-text" style="cursor: pointer" onclick="sortName(1)">Product 
-                            Name
-                            </td>
+                           Name
+                        </td>
                         <td id="sort-id" class="table-col user-heading-text" style="cursor: pointer" onclick="sortName(2)">Lowest 
-                            Price
-                            </td>
+                           Price
+                        </td>
                         <td class="table-col user-heading-text">Variations & Stock</td>
                         <td id="sort-id" class="table-col user-heading-text" style="cursor: pointer" onclick="sortName(4)">Last Updated</td>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for product in data %}
-                    <tr id="sort" class="table-row">
+                     </tr>
+                  </thead>
+                  <tbody>
+                     {% for product in data %}
+                     <tr id="sort" class="table-row">
                         <td class="align-center table-col attendance-text">{{forloop.counter }}</td>
                         <td class="align-center table-col attendance-text">{{product.item.name}}</td>
                         <td class="align-center table-col attendance-text">{{product.item.lowest_price}}</td>
                         <td class="align-center table-col attendance-text">
-
-                        <table id="" class="user-table">
-                            <thead class="table-heading">
-                                <td class="table-col user-heading-text">Variation</td>
-                        <td class="table-col user-heading-text" style="cursor: pointer">Product 
-                            Stocks
-                            </td>
-                            </thead>
-
-                            <tbody>
-                                {% for variation in product.variation %}
-                                    {% if variation.stock == 0 %}
-                                        <tr class="table-row" style="color: red;">
-                                            <td class="align-center table-col attendance-text">{{variation.variation_text}}</td>
-                                            <td class="align-center table-col attendance-text"> {{variation.stock}}</td>
-                                        </tr>
-                                    {% else %}
-                                        <tr class="table-row">
-                                            <td class="align-center table-col attendance-text">{{variation.variation_text}}</td>
-                                            <td class="align-center table-col attendance-text"> {{variation.stock}}</td>
-                                        </tr>
-                                    {% endif %}
-                                {% endfor %}
-                            </tbody>
-                        </table>
-
+                           <table id="" class="user-table">
+                              <thead class="table-heading">
+                                 <td class="table-col user-heading-text">Variation</td>
+                                 <td class="table-col user-heading-text" style="cursor: pointer">Product 
+                                    Stocks
+                                 </td>
+                              </thead>
+                              <tbody>
+                                 {% for variation in product.variation %}
+                                 {% if variation.stock == 0 %}
+                                 <tr class="table-row" style="color: red;">
+                                    <td class="align-center table-col attendance-text">{{variation.variation_text}}</td>
+                                    <td class="align-center table-col attendance-text"> {{variation.stock}}</td>
+                                 </tr>
+                                 {% else %}
+                                 <tr class="table-row">
+                                    <td class="align-center table-col attendance-text">{{variation.variation_text}}</td>
+                                    <td class="align-center table-col attendance-text"> {{variation.stock}}</td>
+                                 </tr>
+                                 {% endif %}
+                                 {% endfor %}
+                              </tbody>
+                           </table>
                         </td>
                         <td class="align-center table-col attendance-text">{{product.item.last_updated}}</td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-                
-            </table>
-       
-       </div>
-
-       <div>
-        {% if page_obj.has_other_pages %}
-        <div class="pagination">
-            <span class="step-links">
-                {% if page_obj.has_previous %}
-                    <a href="?page=1">&laquo; first</a>
-                    <a href="?page={{ page_obj.previous_page_number }}">&lsaquo; previous</a>
-                {% endif %}
-    
-                <span class="current-page">
-                    Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
-                </span>
-    
-                {% if page_obj.has_next %}
-                    <a href="?page={{ page_obj.next_page_number }}">next &rsaquo;</a>
-                    <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
-                {% endif %}
-            </span>
-        </div>
-        {% endif %}
-       </div>
-    </div>
-
-</div>
-
-<script type="text/javascript" src="{% static 'index.js' %}"></script>
-</body>
-
+                     </tr>
+                     {% endfor %}
+                  </tbody>
+               </table>
+            </div>
+            <div>
+               {% if page_obj.has_other_pages %}
+               <div class="pagination">
+                  <span class="step-links">
+                  {% if page_obj.has_previous %}
+                  <a href="?page=1">&laquo; first</a>
+                  <a href="?page={{ page_obj.previous_page_number }}">&lsaquo; previous</a>
+                  {% endif %}
+                  <span class="current-page">
+                  Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+                  </span>
+                  {% if page_obj.has_next %}
+                  <a href="?page={{ page_obj.next_page_number }}">next &rsaquo;</a>
+                  <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+                  {% endif %}
+                  </span>
+               </div>
+               {% endif %}
+            </div>
+         </div>
+      </div>
+      <script type="text/javascript" src="{% static 'index.js' %}"></script>
+   </body>
 </html>

@@ -10,39 +10,46 @@ from openpyxl import load_workbook
 def index(request):
     result = []
 
-    #fetch all products in Product Model
+    # Retrieve all products from the database
     allProducts = Product.objects.all()
-    paginator = Paginator(allProducts, 3) # per page
-    page_number = request.GET.get('page') # get the page number from client
+
+    # Create a paginator with 3 items per page and get the requested page number
+    paginator = Paginator(allProducts, 3) 
+    page_number = request.GET.get('page') 
     page_obj = paginator.get_page(page_number)
 
 
-    # Traverse the page object to fetch all the variations, add into a list
+    # Loop through each product on the requested page and retrieve its variations
     for product in page_obj:
+
         variation = Product.objects.get(name=product.name).variations.all()
+
+        # Add the product and its variations to a dictionary and append it to the result list
         product_variance = {
             "item": product,
             "variation": variation,
         }
         result.append(product_variance)
 
-    # send data list along with paginator
+    # Create a context dictionary with the result list and the page object
     context = {
         "data": result,
         'page_obj': page_obj,
     }
     
+    # Render the homepage template with the context dictionary
     return render(request, 'excelperser/homePage.html', context=context)
 
 
 @csrf_exempt
 def addProduct(request):
 
+    # Check if the request method is POST and if a file was uploaded
     if request.method == 'POST' and request.FILES.get('file'):
 
         file = request.FILES['file']
 
-
+        # Check if the file type and size are valid
         if file.content_type not in ['application/vnd.ms-excel', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet']:
             return JsonResponse({'error': 'Invalid file type'})
         if file.size > 2 * 1024 * 1024:
@@ -52,34 +59,46 @@ def addProduct(request):
 
         try:
 
-            workbook = load_workbook(filename=file)
-            sheet_name = workbook.sheetnames[0]
-            worksheet = workbook[sheet_name]
+            # Load the workbook from the uploaded file and retrieve the first worksheet
+            productFile = load_workbook(filename=file)
+            sheet_name = productFile.sheetnames[0]
+            dataInFile = productFile[sheet_name]
 
+            # Loop through each row in the worksheet and add the products and variations to the database
             ok = False
 
-            for line in worksheet:
+            for line in dataInFile:
 
+                # Skip the first row (header row)
                 if not ok:
                     ok = True
                     continue
 
+                # Get the product name, variation text, and stock from the current row
                 name, variation_text, stock = line[0].value, line[1].value, line[2].value 
+
+
+                # Check if the product already exists in the database
                 products = Product.objects.filter(name=name)
 
                 if products:
-
+                    # If the product exists, check if the variation already exists
                     variation = ProductVariation.objects.filter(product_id = products[0].id, variation_text=variation_text)
 
                     if variation:
+                        # If the variation already exists, update its stock
                         variation[0].stock += stock
                         variation[0].save()
                     else:
+                        # If the variation doesn't exist, create a new one
+
                         newVariation = ProductVariation(product_id=products[0].id, variation_text=variation_text, stock=stock)
                         newVariation.save()
 
                 else:
                     
+                    # If the product doesn't exist, create a new one and a new variation
+
                     newProduct = Product(name=name, lowest_price=0)
                     newProduct.save()
 

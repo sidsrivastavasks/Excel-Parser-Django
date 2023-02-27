@@ -147,6 +147,15 @@ input {
     background-color: cadetblue;
 }
 
+.file-message {
+    font-size: small;
+    font-weight: 300;
+    line-height: 1.4;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
 @media screen and (max-width: 900px) {
     .body {
         width: 90%;
