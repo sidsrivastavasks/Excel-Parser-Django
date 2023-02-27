@@ -5,57 +5,60 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     {% load bootstrap5 %}
-    {% bootstrap_css %}
     {% bootstrap_javascript %}
+    {% bootstrap_css %}
     {% load static %}
     <link rel="stylesheet" href="{% static 'style.css'%}">
 </head>
 <body>
     
+    
 <div class="main">
     <div class="body">
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-            Launch demo modal
+        <!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" style="background-color: #8500ff; border-color: white;" data-bs-toggle="modal" data-bs-target="#exampleModalCenter">
+    Add Products
+  </button>
+  
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLongTitle">Choose a product file</h5>
           </button>
-          
-          <!-- Modal -->
-          <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                  </button>
-                </div>
-                <div class="modal-body">
-                  ...
-                </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                  <button type="button" class="btn btn-primary">Save changes</button>
-                </div>
-              </div>
-            </div>
-          </div>
+        </div>
+        <div class="modal-body">
+            <form id="file-input-form" class="form-group row" enctype="multipart/form-data">
+                <input required id="my-file" type="file" class="form-control" name="file">
+                <button type="submit" class="btn btn-primary mt-2">Submit</button>
+            </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
         <div class="second">
-            <h2>Find User Data Below</h2>
+            <h2>Find Mobile Data Below</h2>
             <input id="search-box" class="search" type="search" placeholder="Search Name..." value="" onkeyup="searchData()">
         </div>
        <div class="third">
             <table id="myTable" class="user-table">
                 <thead>
                     <tr class="table-heading">
-                        <td class="table-col user-heading-text" style="cursor: pointer" onclick="sortName(0)">Sl. No.</td>
-                        <td class="table-col user-heading-text" style="cursor: pointer" onclick="sortName(1)">Product 
+                        <td id="sort-id" class="table-col user-heading-text" style="cursor: pointer; " onclick="sortName(0)">Sl. No.</td>
+                        <td id="sort-id" class="table-col user-heading-text" style="cursor: pointer" onclick="sortName(1)">Product 
                             Name
                             </td>
-                        <td class="table-col user-heading-text" style="cursor: pointer" onclick="sortName(2)">Lowest 
+                        <td id="sort-id" class="table-col user-heading-text" style="cursor: pointer" onclick="sortName(2)">Lowest 
                             Price
                             </td>
                         <td class="table-col user-heading-text">Variations & Stock</td>
-                        <td class="table-col user-heading-text" style="cursor: pointer" onclick="sortName(4)">Last Updated</td>
+                        <td id="sort-id" class="table-col user-heading-text" style="cursor: pointer" onclick="sortName(4)">Last Updated</td>
                     </tr>
                 </thead>
                 <tbody>
@@ -126,10 +129,7 @@
 
 </div>
 
-
-
-</body>
 <script type="text/javascript" src="{% static 'index.js' %}"></script>
-
 </body>
+
 </html>

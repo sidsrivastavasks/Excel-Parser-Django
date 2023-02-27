@@ -116,12 +116,7 @@ input {
 }
 
 .table-row:nth-child(odd) {
-    background-color: #c789ff3d;
-    color: black;
-}
-
-.table-row:hover {
-    background-color: #8500ff8f;
+    background-color: #a0a0a03d;
     color: black;
 }
 
@@ -146,6 +141,10 @@ input {
 
 .pagination .current-page {
     font-weight: bold;
+}
+
+#sort-id:hover {
+    background-color: cadetblue;
 }
 
 @media screen and (max-width: 900px) {
