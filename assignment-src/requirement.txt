@@ -14,3 +14,4 @@ pytz
 six
 soupsieve
 sqlparse
+importlib-metadata
