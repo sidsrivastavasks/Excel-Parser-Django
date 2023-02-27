@@ -4,7 +4,7 @@
       <meta charset="UTF-8">
       <meta http-equiv="X-UA-Compatible" content="IE=edge">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>Document</title>
+      <title>Product Data</title>
       <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
       {% load bootstrap5 %}
       {% bootstrap_javascript %}
@@ -15,34 +15,33 @@
    <body>
       <div class="main">
          <div class="body">
-            <!-- Button trigger modal -->
-            <button type="button" class="btn btn-primary" style="background-color: #8500ff; border-color: white;" data-bs-toggle="modal" data-bs-target="#exampleModalCenter">
-            Add Products
-            </button>
-            <!-- Modal -->
-            <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-               <div class="modal-dialog modal-dialog-centered" role="document">
-                  <div class="modal-content">
-                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLongTitle">Choose a product file</h5>
-                        </button>
-                     </div>
-                     <div class="modal-body">
-                        <form id="file-input-form" class="form-group row" enctype="multipart/form-data">
-                           <label for="file"><strong>Choose a file</strong><span> or drag it here</span>.</label>
-                           <input required id="my-file" type="file" class="form-control mt-2" name="file">
-                           <button type="submit" class="btn btn-primary mt-2">Submit</button>
-                        </form>
-                     </div>
-                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <div class="second">
+               <input id="search-box" class="search" type="search" placeholder="Search Name..." value="" onkeyup="searchData()">
+
+               <button type="button" class="btn btn-primary" style="background-color: #8500ff; border-color: white;" data-bs-toggle="modal" data-bs-target="#exampleModalCenter">
+                  Add Products
+                  </button>
+                  <!-- Modal -->
+                  <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                     <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                           <div class="modal-header">
+                              <h5 class="modal-title" id="exampleModalLongTitle">Choose a product file</h5>
+                              </button>
+                           </div>
+                           <div class="modal-body">
+                              <form id="file-input-form" class="form-group row" enctype="multipart/form-data">
+                                 <label for="file"><strong>Choose a file</strong><span> or drag it here</span>.</label>
+                                 <input required id="my-file" type="file" class="form-control mt-2" name="file">
+                                 <button type="submit" class="btn btn-primary mt-2">Submit</button>
+                              </form>
+                           </div>
+                           <div class="modal-footer">
+                              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                           </div>
+                        </div>
                      </div>
                   </div>
-               </div>
-            </div>
-            <div class="second">
-               <h2>Find Mobile Data Below</h2>
-               <input id="search-box" class="search" type="search" placeholder="Search Name..." value="" onkeyup="searchData()">
             </div>
             <div class="third">
                <table id="myTable" class="user-table">
