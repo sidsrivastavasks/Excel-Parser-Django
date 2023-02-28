@@ -82,4 +82,15 @@ Pagination
 2- /excel/add-product
 ```
 
-### This endpoint is a POST request that accepts a File input from the user and add the data to the database.
+#### This endpoint is a POST request that accepts a File input from the user and add the data to the database.
+
+### Here are some screen shots of the website
+
+![image](https://user-images.githubusercontent.com/55981532/221781328-ce2833b7-8bb1-49e1-94e5-dfda35262a45.png)
+![image](https://user-images.githubusercontent.com/55981532/221781391-01ee79d8-8aa8-4c1a-951c-4c12b4fb9f50.png)
+![image](https://user-images.githubusercontent.com/55981532/221781562-772dd664-86c9-4cc1-a631-63178996dfa3.png)
+![image](https://user-images.githubusercontent.com/55981532/221781703-dd2d6e84-7cad-4921-9fa8-dc5ff85856fe.png)
+
+
+
+
