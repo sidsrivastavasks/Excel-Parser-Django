@@ -1,5 +1,12 @@
 # Excel-Parser-Django
 
+## Run the Deployed App
+
+Click here to see the hosted URL [https://my-django-project.onrender.com/excel](https://my-django-project.onrender.com/excel)
+
+<hr>
+<br>
+
 ### It is a Django based Application.
 
 <br>
