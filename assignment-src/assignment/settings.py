@@ -124,4 +124,4 @@ MEDIA_URL = 'media/'
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
-ALLOWED_HOSTS = ['my-django-project.onrender.com']
+ALLOWED_HOSTS = ['my-django-project.onrender.com', 'localhost']

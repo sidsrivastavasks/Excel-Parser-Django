@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponseRedirect
 from django.core.paginator import Paginator
 from django.views.decorators.csrf import csrf_exempt
 from .models import Product, ProductVariation
@@ -9,6 +9,10 @@ import random
 from openpyxl import load_workbook
 
 
+def redirectToUrl(request):
+    return HttpResponseRedirect("/excel")
+
+
 def index(request):
     result = []
 
@@ -16,10 +20,9 @@ def index(request):
     allProducts = Product.objects.all()
 
     # Create a paginator with 3 items per page and get the requested page number
-    paginator = Paginator(allProducts, 3) 
-    page_number = request.GET.get('page') 
+    paginator = Paginator(allProducts, 3)
+    page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
-
 
     # Loop through each product on the requested page and retrieve its variations
     for product in page_obj:
@@ -38,7 +41,7 @@ def index(request):
         "data": result,
         'page_obj': page_obj,
     }
-    
+
     # Render the homepage template with the context dictionary
     return render(request, 'excelperser/homePage.html', context=context)
 
@@ -56,8 +59,6 @@ def addProduct(request):
             return JsonResponse({'error': 'Invalid file type'})
         if file.size > 2 * 1024 * 1024:
             return JsonResponse({'error': 'File size exceeded'})
-        
-
 
         try:
 
@@ -77,22 +78,22 @@ def addProduct(request):
                     continue
 
                 # Get the product name, variation text, and stock from the current row
-                name, variation_text, stock = line[0].value, line[1].value, line[2].value 
-
+                name, variation_text, stock = line[0].value, line[1].value, line[2].value
 
                 # Check if the product already exists in the database
                 products = Product.objects.filter(name=name)
 
                 if products:
                     # If the product exists, check if the variation already exists
-                    variation = ProductVariation.objects.filter(product_id = products[0].id, variation_text=variation_text)
+                    variation = ProductVariation.objects.filter(
+                        product_id=products[0].id, variation_text=variation_text)
 
                     if variation:
                         # If the variation already exists, update its stock
                         variation[0].stock += stock
 
-                        utc_now = datetime.utcnow()      
-                        india_offset = timedelta(hours=5, minutes=30)                  
+                        utc_now = datetime.utcnow()
+                        india_offset = timedelta(hours=5, minutes=30)
                         variation[0].last_updated = utc_now + india_offset
                         products[0].last_updated = (utc_now + india_offset)
 
@@ -100,23 +101,26 @@ def addProduct(request):
                         variation[0].save()
                     else:
                         # If the variation doesn't exist, create a new one
-                        newVariation = ProductVariation(product_id=products[0].id, variation_text=variation_text, stock=stock)
+                        newVariation = ProductVariation(
+                            product_id=products[0].id, variation_text=variation_text, stock=stock)
                         newVariation.save()
 
                 else:
-                    
+
                     # If the product doesn't exist, create a new one and a new variation
 
-                    newProduct = Product(name=name, lowest_price=random.randint(10000, 99999))
+                    newProduct = Product(
+                        name=name, lowest_price=random.randint(10000, 99999))
                     newProduct.save()
 
-                    newVariation = ProductVariation(product_id=newProduct.id, variation_text=variation_text, stock=stock)
+                    newVariation = ProductVariation(
+                        product_id=newProduct.id, variation_text=variation_text, stock=stock)
                     newVariation.save()
-         
+
             return JsonResponse({'success': True})
-        
+
         except Exception as e:
             return JsonResponse({'error': str(e)})
-            
+
     else:
         return JsonResponse({'error': 'Invalid request'})
